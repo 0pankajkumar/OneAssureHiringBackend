@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS
 import os
 
 from pymongo import MongoClient
@@ -7,6 +8,7 @@ from pymongo.server_api import ServerApi
 from tools import calculate_premium, convert_bson_to_python
 
 app = Flask(__name__)
+CORS(app, origins=["*"])
 uri = os.environ["DATABASE_URI"]
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client["test"]
