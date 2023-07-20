@@ -37,7 +37,7 @@ def calculate_premium(rates):
 
     if not rate_card_logic_flag:
         print("Logic failed")
-        return rate_card_logic_message
+        return {"errorMsg": rate_card_logic_message}
 
     premiums = list()
     discount = 0
