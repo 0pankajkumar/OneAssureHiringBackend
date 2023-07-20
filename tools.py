@@ -1,9 +1,10 @@
 def check_rate_card_logic(sorted_rates):
     if len(sorted_rates) <= 0:
         print("length of sorted rates <= 0")
-        return False
+        return False, "No results found from rate cards"
     if sorted_rates[0]["Age"] < 18:
         print("One adult is compulsory")
+        return False, "One adult is compulsory"
 
     # Counting kids & adults
     kids = 0
@@ -15,10 +16,12 @@ def check_rate_card_logic(sorted_rates):
             adults += 1
     if kids > 4:
         print("Kids > 4 not allowed")
+        return False, "Kids > 4 not allowed"
     if adults > 2:
         print("Adults > 2 not allowed")
+        return False, "Adults > 2 not allowed"
 
-    return True
+    return True, "All checks passed"
 
 
 def calculate_premium(rates):
@@ -30,9 +33,11 @@ def calculate_premium(rates):
         return premiums
     sorted_rates = sorted(rates, key=lambda x: x['Age'], reverse=True)
 
-    if not check_rate_card_logic(sorted_rates):
+    rate_card_logic_flag, rate_card_logic_message = check_rate_card_logic(sorted_rates)
+
+    if not rate_card_logic_flag:
         print("Logic failed")
-        return
+        return rate_card_logic_message
 
     premiums = list()
     discount = 0
